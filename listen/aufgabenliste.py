@@ -32,3 +32,9 @@ print("----------sort----------")
 
 aufgabenliste.sort()
 print(aufgabenliste)
+
+print("\n")
+print("----------insert----------")
+
+aufgabenliste.insert(1, "Bericht")
+print(aufgabenliste)
