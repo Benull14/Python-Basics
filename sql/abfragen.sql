@@ -60,3 +60,24 @@ SELECT DISTINCT abteilung, standort
 FROM mitarbeiter
 ORDER BY abteilung, standort;
 
+-- Aufgabe 3. a)
+SELECT titel
+FROM buecher
+WHERE genre = 'Roman';
+
+-- Aufgabe 3. b)
+SELECT titel, seiten
+FROM buecher
+WHERE seiten > 300
+ORDER BY seiten DESC;
+
+-- Aufgabe 3. c)
+SELECT DISTINCT autor
+FROM buecher
+WHERE genre = 'Sachbuch';
+
+-- Aufgabe 3. d)
+SELECT titel
+FROM buecher
+WHERE autor LIKE 'L.%'
+ AND jahr < 2018;
