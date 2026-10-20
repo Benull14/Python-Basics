@@ -3,6 +3,7 @@ FROM mitarbeiter;
 
 SELECT * FROM mitarbeiter;
 
+
 SELECT vorname, nachname, abteilung
 FROM mitarbeiter
 WHERE abteilung = 'IT';
