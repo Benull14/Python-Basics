@@ -77,3 +77,57 @@ SELECT m.vorname, m.nachname, m.gehalt
 FROM mitarbeiter m
 JOIN abteilung a ON a.id = m.abteilung_id
 WHERE m.standort = 'Dresden' AND a.name = 'IT';
+
+
+
+
+-- Spalte budget zur Tabelle abteilung mit Standardwert von 10000 hinzufügen
+
+
+ALTER TABLE abteilung ADD COLUMN budget INTEGER DEFAULT 10000;
+SELECT * FROM abteilung;
+
+
+-- Transaktionen - TCL
+
+-- COMMIT: 5000 EUR budget von der IT-Abteilung in die Marketingabteilung umbuchen
+
+-- OHNE TRANSAKION
+
+UPDATE abteilung SET budget = budget - 5000 WHERE name = 'IT';
+UPDATE abteilung SET budget = budget + 5000 WHERE name = 'Marketing';
+
+SELECT * FROM abteilung;
+
+-- MIT TRANSAKTION
+
+BEGIN TRANSACTION;
+UPDATE abteilung SET budget = budget - 5000 WHERE name = 'IT';
+UPDATE abteilung SET budget = budget + 5000 WHERE name = 'Marketing';
+COMMIT;
+SELECT * FROM abteilung;
+
+
+-- ROLLBACK
+
+BEGIN TRANSACTION;
+DELETE FROM mitarbeiter;
+SELECT COUNT(*) FROM mitarbeiter;
+ROLLBACK;
+
+SELECT * FROM mitarbeiter;
+
+-- SAVEPOINT
+
+BEGIN TRANSACTION;
+UPDATE mitarbeiter SET standort = 'Leipzig' WHERE id = 4;
+SELECT * FROM mitarbeiter;
+SAVEPOINT nach_umzug;
+UPDATE mitarbeiter SET standort = 'München' WHERE id = 7;
+SELECT * FROM mitarbeiter;
+ROLLBACK TO nach_umzug;
+COMMIT;
+
+SELECT * FROM mitarbeiter;
+
+
